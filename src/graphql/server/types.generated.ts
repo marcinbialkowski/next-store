@@ -123,7 +123,7 @@ export type OrderItem = {
   quantity: Scalars['Int']['output'];
 };
 
-export type OrderStatus = 'CANCELLED' | 'CREATED' | 'FULFILLED' | 'PAID';
+export type OrderStatus = 'AWAITING_PAYMENT' | 'CANCELLED' | 'CREATED' | 'PAID';
 
 export type Product = {
   __typename?: 'Product';

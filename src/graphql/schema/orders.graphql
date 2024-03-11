@@ -10,9 +10,9 @@ extend type Mutation {
 }
 
 enum OrderStatus {
+  AWAITING_PAYMENT
   CANCELLED
   CREATED
-  FULFILLED
   PAID
 }
 

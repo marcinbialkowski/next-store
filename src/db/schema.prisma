@@ -70,9 +70,9 @@ model OrderItem {
 }
 
 enum OrderStatus {
+  AWAITING_PAYMENT
   CANCELLED
   CREATED
-  FULFILLED
   PAID
 }
 
