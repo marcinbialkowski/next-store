@@ -1,6 +1,4 @@
 import { unstable_cache as cache } from 'next/cache';
-import algoliarecommend from '@algolia/recommend';
-import { relatedProductsSchema } from './products.schema';
 import {
   type ProductsListOptions,
   type GetProductsResult,
@@ -13,13 +11,10 @@ import {
 import {
   executeGraphql,
   ProductGetBySlugDocument,
-  ProductsGetByIdsDocument,
   ProductsGetListDocument,
   type ProductFragment,
   type ProductListItemFragment,
 } from '@/graphql/client';
-
-const { ALGOLIA_APP_ID, ALGOLIA_API_KEY } = process.env;
 
 export const getProducts = cache(
   async (options: ProductsListOptions): Promise<GetProductsResult> => {
@@ -39,34 +34,11 @@ export const getProducts = cache(
   { tags: ['products'] },
 );
 
+// TODO: implement
 export const getRelatedProducts = cache(
   async (
-    productSlug: ProductFragment['slug'],
-  ): Promise<ProductListItemFragment[]> => {
-    if (!ALGOLIA_APP_ID || !ALGOLIA_API_KEY) {
-      throw new Error('Missing Algolia configuration');
-    }
-
-    const client = algoliarecommend(ALGOLIA_APP_ID, ALGOLIA_API_KEY);
-
-    const relatedResponse = await client.getRelatedProducts([
-      {
-        indexName: 'products',
-        objectID: productSlug,
-        maxRecommendations: 4,
-      },
-    ]);
-
-    const relatedProductIds = relatedProductsSchema
-      .parse(relatedResponse.results[0]?.hits ?? [])
-      .map((relatedProduct) => relatedProduct.id);
-
-    const result = await executeGraphql(ProductsGetByIdsDocument, {
-      ids: relatedProductIds,
-    });
-
-    return result.products.data;
-  },
+    _productSlug: ProductFragment['slug'],
+  ): Promise<ProductListItemFragment[]> => Promise.resolve([]),
   ['related-products'],
   { tags: ['products'] },
 );

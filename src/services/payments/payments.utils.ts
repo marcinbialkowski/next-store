@@ -8,7 +8,7 @@ export const getStripe = () => {
   }
 
   return new Stripe(STRIPE_SECRET_KEY, {
-    apiVersion: '2023-10-16',
+    apiVersion: '2024-04-10',
     typescript: true,
   });
 };
