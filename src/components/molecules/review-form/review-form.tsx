@@ -20,7 +20,7 @@ export const ReviewForm = ({ productId }: ReviewFormProps) => {
         <input name="productId" type="hidden" value={productId} />
         <label>
           <span className="text-gray-600">Review title</span>
-          <Input className="w-full" minLength={2} name="headline" required />
+          <Input className="w-full" minLength={2} name="title" required />
         </label>
         <label>
           <span className="text-gray-600">Review content</span>
@@ -34,7 +34,7 @@ export const ReviewForm = ({ productId }: ReviewFormProps) => {
         </label>
         <label>
           <span className="text-gray-600">Name</span>
-          <Input className="w-full" minLength={2} name="name" required />
+          <Input className="w-full" minLength={2} name="author" required />
         </label>
         <label>
           <span className="text-gray-600">Email</span>

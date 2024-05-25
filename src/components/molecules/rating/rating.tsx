@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { formatRating } from './format-rating';
 import { StarRating } from '@/components/atoms/star-rating';
-import { MAX_REVIEW } from '@/const';
+import { MAX_REVIEW } from '@/services/reviews';
 
 interface RatingProps {
   className?: string;

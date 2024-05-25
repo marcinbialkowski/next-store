@@ -3,7 +3,7 @@
 import type Stripe from 'stripe';
 import { revalidatePath } from 'next/cache';
 import { type NextRequest } from 'next/server';
-import { type OrderStatus } from '@/graphql/client';
+import { type OrderStatus } from '@/services/orders';
 import { prisma } from '@/db';
 import { getStripe, paymentIntentMetadataSchema } from '@/services/payments';
 

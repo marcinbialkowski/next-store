@@ -1,33 +1,30 @@
 import { unstable_cache as cache } from 'next/cache';
+import { type Collection } from './collections.types';
 import {
-  type Collection,
-  CollectionGetBySlugDocument,
-  executeGraphql,
-} from '@/graphql/client';
-import {
-  type ProductsListOptions,
-  toProductsPaginatedResult,
-  toProductsPaginationVariables,
+  type ProductsPaginationOptions,
+  getProducts,
 } from '@/services/products';
+import { prisma } from '@/db';
 
 export const getCollection = cache(
-  async (slug: Collection['slug'], options: ProductsListOptions) => {
-    const productsVariables = toProductsPaginationVariables(options);
-    const result = await executeGraphql(CollectionGetBySlugDocument, {
-      slug,
-      productsFirst: productsVariables.first,
-      productsSkip: productsVariables.skip,
-    });
+  async (
+    slug: Collection['slug'],
+    paginationOptions: ProductsPaginationOptions,
+  ) => {
+    const collection = await prisma.collection.findUnique({ where: { slug } });
 
-    if (!result.collection) {
+    if (!collection) {
       return null;
     }
 
+    const productsResult = await getProducts({
+      collectionId: collection.id,
+      ...paginationOptions,
+    });
+
     return {
-      ...result.collection,
-      ...toProductsPaginatedResult(result.collection.products, {
-        pageSize: options.pageSize,
-      }),
+      ...collection,
+      ...productsResult,
     };
   },
   ['get-collection'],

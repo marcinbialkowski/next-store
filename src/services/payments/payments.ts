@@ -1,13 +1,12 @@
 import { getStripe } from './payments.utils';
-import { getCartFromCookie } from '@/services/orders';
-import { getCartTotal } from '@/utils/get-cart-total';
+import { getCartFromCookieOrThrow, getOrderTotal } from '@/services/orders';
 import { paymentIntentMetadataSchema } from '@/services/payments/payments.schema';
 
 export const createPaymentIntent = async () => {
-  const cart = await getCartFromCookie();
-  const amount = cart ? getCartTotal(cart) : 0;
+  const cart = await getCartFromCookieOrThrow();
+  const amount = getOrderTotal(cart);
 
-  if (!cart || !amount) {
+  if (!amount) {
     throw new Error('No products in the cart');
   }
 

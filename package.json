@@ -11,8 +11,7 @@
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "prepare": "husky",
-    "codegen": "graphql-codegen --config .graphqlrc.ts",
-    "postinstall": "pnpm db:generate-client && pnpm codegen",
+    "postinstall": "pnpm db:generate-client",
     "db:seed": "tsx src/db/seed.ts",
     "db:migrate": "prisma migrate dev",
     "db:generate-client": "prisma generate"
@@ -21,15 +20,11 @@
     "schema": "src/db/schema.prisma"
   },
   "dependencies": {
-    "@apollo/server": "^4.10.0",
-    "@as-integrations/next": "^3.0.0",
     "@mdx-js/react": "^3.0.1",
     "@prisma/client": "^5.13.0",
     "@stripe/react-stripe-js": "^2.7.1",
     "@stripe/stripe-js": "^3.4.0",
     "clsx": "^2.1.1",
-    "graphql": "^16.8.1",
-    "graphql-scalars": "^1.22.4",
     "lucide-react": "^0.378.0",
     "next": "14.2.3",
     "qs": "^6.12.1",
@@ -41,10 +36,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@eddeee888/gcg-typescript-resolver-files": "^0.7.2",
-    "@graphql-codegen/cli": "5.0.2",
-    "@graphql-codegen/client-preset": "4.2.2",
-    "@graphql-typed-document-node/core": "^3.2.0",
     "@mdx-js/loader": "^3.0.1",
     "@next/mdx": "^14.2.3",
     "@tailwindcss/typography": "^0.5.13",

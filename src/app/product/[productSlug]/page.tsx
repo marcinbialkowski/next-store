@@ -45,13 +45,11 @@ const ProductPage = async ({ params }: ProductPageProps) => {
   return (
     <div className="container grid grid-cols-1 gap-14 pt-14 lg:grid-cols-2 xl:gap-24">
       <div className="min-w-0">
-        {product.images[0] && (
-          <ProductImage
-            className="rounded-lg"
-            image={product.images[0]}
-            priority
-          />
-        )}
+        <ProductImage
+          className="rounded-lg"
+          image={product.primaryImage}
+          priority
+        />
       </div>
       <div>
         <h1 className="text-4xl">{product.name}</h1>

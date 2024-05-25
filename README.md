@@ -1,7 +1,7 @@
 # Next Store
 
-Store application implemented with Next.js as a final project of the
-[Next.js Masters](https://www.nextjsmasters.pl/) course.
+An online store built with Next.js, created as the final project
+for the [Next.js Masters](https://www.nextjsmasters.pl/) course.
 
 ## Getting Started
 
@@ -17,4 +17,5 @@ and then run the development server:
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser
+to see the result.

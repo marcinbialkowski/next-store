@@ -3,18 +3,17 @@
 import clsx from 'clsx';
 import { useOptimistic } from 'react';
 import { changeQuantity } from './actions';
-import type { CartFragment, CartItemFragment } from '@/graphql/client';
 import { ChangeCartItemQuantityButton } from '@/components/atoms/change-cart-item-quantity-button';
+import { type OrderItem } from '@/services/orders';
+import { type Product } from '@/services/products';
 
 interface ChangeCartItemQuantityProps {
-  cartId: CartFragment['id'];
   className?: string;
-  productId: CartItemFragment['product']['id'];
-  quantity: CartItemFragment['quantity'];
+  productId: Product['id'];
+  quantity: OrderItem['quantity'];
 }
 
 export const ChangeCartItemQuantity = ({
-  cartId,
   className,
   productId,
   quantity,
@@ -23,7 +22,7 @@ export const ChangeCartItemQuantity = ({
 
   const handleChange = async (newQuantity: number) => {
     setOptimisticQuantity(newQuantity);
-    await changeQuantity(cartId, productId, newQuantity);
+    await changeQuantity(productId, newQuantity);
   };
 
   return (

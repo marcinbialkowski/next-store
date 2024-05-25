@@ -1,9 +1,10 @@
 import { ShoppingCart } from 'lucide-react';
 import { ActiveLink } from '@/components/atoms/active-link';
-import { getCartItemsCount } from '@/services/orders';
+import { getCartFromCookie, getOrderItemsCount } from '@/services/orders';
 
 export const CartLink = async () => {
-  const itemsCount = await getCartItemsCount();
+  const cart = await getCartFromCookie();
+  const itemsCount = cart ? getOrderItemsCount(cart) : 0;
 
   return (
     <ActiveLink className="flex items-center gap-2 text-gray-600" href="/cart">

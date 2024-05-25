@@ -1,9 +1,9 @@
-import { type CartFragment } from '@/graphql/client';
 import { CartItemList } from '@/components/organisms/cart-item-list';
 import { CartSummary } from '@/components/molecules/cart-summary';
+import { type Order } from '@/services/orders';
 
 interface CartProps {
-  cart: CartFragment;
+  cart: Order;
 }
 
 export const Cart = ({ cart }: CartProps) => (

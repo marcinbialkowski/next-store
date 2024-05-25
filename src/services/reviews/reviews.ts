@@ -1,23 +1,20 @@
 import { revalidateTag, unstable_cache as cache } from 'next/cache';
-import {
-  executeGraphql,
-  ReviewCreateDocument,
-  type ReviewCreateMutationVariables,
-  type ReviewFragment,
-  ReviewsGetByProductIdDocument,
-} from '@/graphql/client';
+import { type Review, type ReviewCreateData } from './reviews.types';
+import { prisma } from '@/db';
 
-export const createReview = async (data: ReviewCreateMutationVariables) => {
-  await executeGraphql(ReviewCreateDocument, data);
+export const createReview = async (data: ReviewCreateData) => {
+  await prisma.review.create({ data });
+
   revalidateTag('reviews');
   revalidateTag('products');
 };
 
 export const getReviews = cache(
-  (productId: string): Promise<ReviewFragment[]> =>
-    executeGraphql(ReviewsGetByProductIdDocument, { productId }).then(
-      (result) => result.reviews,
-    ),
+  (productId: string): Promise<Review[]> =>
+    prisma.review.findMany({
+      where: { productId },
+      orderBy: { createdAt: 'desc' },
+    }),
   ['get-reviews'],
   {
     tags: ['reviews'],

@@ -1,9 +1,9 @@
 import { EmptyResultMessage } from '@/components/atoms/empty-result-message';
 import { ReviewListItem } from '@/components/molecules/review-list-item';
-import { type ReviewFragment } from '@/graphql/client';
+import { type Review } from '@/services/reviews';
 
 interface ReviewListProps {
-  reviews: ReviewFragment[];
+  reviews: Review[];
 }
 
 export const ReviewList = ({ reviews }: ReviewListProps) => {

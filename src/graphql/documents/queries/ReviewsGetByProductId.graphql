@@ -1,5 +1,0 @@
-query ReviewsGetByProductId($productId: ID!) {
-  reviews(productId: $productId) {
-    ...Review
-  }
-}

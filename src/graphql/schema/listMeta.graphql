@@ -1,4 +1,0 @@
-type ListMeta {
-  count: Int!
-  total: Int!
-}

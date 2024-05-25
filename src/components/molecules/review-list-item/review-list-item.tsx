@@ -1,8 +1,8 @@
-import { type ReviewFragment } from '@/graphql/client';
 import { Rating } from '@/components/molecules/rating';
+import { type Review } from '@/services/reviews';
 
 interface ReviewListItemProps {
-  review: ReviewFragment;
+  review: Review;
 }
 
 export const ReviewListItem = ({ review }: ReviewListItemProps) => (

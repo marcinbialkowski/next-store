@@ -1,10 +1,7 @@
 'use server';
 
-import { createReview } from '@/services/reviews';
-import type { ReviewCreateMutationVariables } from '@/graphql/client';
+import { createReview, type ReviewCreateData } from '@/services/reviews';
 
-export const submitReviewAction = async (
-  data: ReviewCreateMutationVariables,
-) => {
+export const submitReviewAction = async (data: ReviewCreateData) => {
   await createReview(data);
 };

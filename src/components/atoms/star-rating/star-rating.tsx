@@ -1,4 +1,4 @@
-import { MAX_REVIEW } from '@/const';
+import { MAX_REVIEW } from '@/services/reviews';
 import { Star } from '@/components/atoms/star';
 
 interface StarRatingProps {

@@ -1,22 +1,20 @@
 import { revalidatePath } from 'next/cache';
-import { type CartFragment, type CartItemFragment } from '@/graphql/client';
-import { removeCartItem } from '@/services/orders';
 import { RemoveCartItemButton } from '@/components/atoms/remove-cart-item-button';
+import { removeCartItem } from '@/services/orders';
+import { type Product } from '@/services/products';
 
 interface RemoveCartItemProps {
-  cartId: CartFragment['id'];
   className?: string;
-  productId: CartItemFragment['product']['id'];
+  productId: Product['id'];
 }
 
 export const RemoveCartItem = ({
-  cartId,
   className,
   productId,
 }: RemoveCartItemProps) => {
   const removeCartItemAction = async () => {
     'use server';
-    await removeCartItem(cartId, productId);
+    await removeCartItem(productId);
     revalidatePath('/cart');
   };
 

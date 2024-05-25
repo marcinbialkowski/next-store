@@ -10,8 +10,7 @@
     "resolveJsonModule": true,
     "jsx": "preserve",
     "incremental": true,
-    "exactOptionalPropertyTypes": false, // needed by graphql-codegen
-    "noImplicitOverride": false, // needed by graphql-codegen
+    "exactOptionalPropertyTypes": false,
     "plugins": [
       {
         "name": "next"

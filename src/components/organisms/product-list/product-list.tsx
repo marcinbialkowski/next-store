@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import { NoProducts } from '@/components/atoms/no-products';
 import { ProductListItem } from '@/components/molecules/product-list-item';
-import { type ProductListItemFragment } from '@/graphql/client';
+import { type Product } from '@/services/products';
 
 interface ProductListProps {
   className?: string;
-  products: ProductListItemFragment[];
+  products: Product[];
 }
 
 export const ProductList = ({ className, products }: ProductListProps) => {

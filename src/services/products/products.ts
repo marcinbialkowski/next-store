@@ -1,34 +1,23 @@
 import { unstable_cache as cache } from 'next/cache';
 import {
+  type Product,
   type ProductsListOptions,
   type GetProductsResult,
-  type GetProductResult,
 } from './products.types';
-import {
-  toProductsPaginatedResult,
-  toProductsPaginationVariables,
-} from './products.utils';
-import {
-  executeGraphql,
-  ProductGetBySlugDocument,
-  ProductsGetListDocument,
-  type ProductFragment,
-  type ProductListItemFragment,
-} from '@/graphql/client';
+import { countProducts, selectProducts } from './products.utils';
+import { prisma } from '@/db';
 
 export const getProducts = cache(
   async (options: ProductsListOptions): Promise<GetProductsResult> => {
-    const result = await executeGraphql(ProductsGetListDocument, {
-      ...toProductsPaginationVariables(options),
-      ...(options.search ? { search: options.search } : {}),
-      ...(options.sortBy
-        ? { sortBy: options.sortBy, sortDirection: options.sortDirection }
-        : {}),
-    });
+    const [products, total] = await prisma.$transaction(async (client) => [
+      await selectProducts(client)(options),
+      await countProducts(client)(options),
+    ]);
 
-    return toProductsPaginatedResult(result.products, {
-      pageSize: options.pageSize,
-    });
+    return {
+      products,
+      pagesCount: Math.ceil(total / options.pageSize),
+    };
   },
   ['get-products'],
   { tags: ['products'] },
@@ -36,18 +25,37 @@ export const getProducts = cache(
 
 // TODO: implement
 export const getRelatedProducts = cache(
-  async (
-    _productSlug: ProductFragment['slug'],
-  ): Promise<ProductListItemFragment[]> => Promise.resolve([]),
+  async (_productSlug: Product['slug']): Promise<Product[]> =>
+    Promise.resolve([]),
   ['related-products'],
   { tags: ['products'] },
 );
 
 export const getProduct = cache(
-  (slug: ProductFragment['slug']): Promise<GetProductResult> =>
-    executeGraphql(ProductGetBySlugDocument, { slug }).then(
-      (result) => result.product ?? null,
-    ),
+  async (slug: Product['slug']): Promise<Product | null> => {
+    const product = await prisma.product.findUnique({
+      where: { slug },
+      include: { primaryImage: true },
+    });
+
+    if (!product) {
+      return null;
+    }
+
+    const aggregations = await prisma.review.aggregate({
+      _avg: {
+        rating: true,
+      },
+      where: {
+        productId: product.id,
+      },
+    });
+
+    return {
+      ...product,
+      rating: aggregations._avg.rating,
+    };
+  },
   ['get-product'],
   { tags: ['products'] },
 );

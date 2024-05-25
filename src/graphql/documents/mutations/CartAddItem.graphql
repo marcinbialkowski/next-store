@@ -1,5 +1,0 @@
-mutation CartAddItem($cartId: ID!, $productId: ID!) {
-  orderAddItem(orderId: $cartId, productId: $productId) {
-    id
-  }
-}

@@ -16,7 +16,7 @@ export const generateImageMetadata = async ({ params }: ProductImageProps) => {
   return [
     {
       id: product?.id ?? '',
-      alt: product?.images[0]?.alt ?? '',
+      alt: product?.primaryImage.alt ?? '',
       contentType: 'image/png',
     },
   ];
@@ -33,7 +33,7 @@ const ProductImage = async ({ params }: ProductImageProps) => {
     (
       <div
         style={{
-          backgroundImage: `url(${product.images[0]?.url})`,
+          backgroundImage: `url(${product.primaryImage.url})`,
           backgroundPosition: 'center',
           backgroundSize: '100% 100%',
           backgroundRepeat: 'no-repeat',

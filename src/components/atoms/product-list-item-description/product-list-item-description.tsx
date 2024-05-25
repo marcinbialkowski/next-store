@@ -1,9 +1,9 @@
 import { ProductPrice } from '@/components/atoms/product-price';
-import { type ProductListItemFragment } from '@/graphql/client';
 import { Rating } from '@/components/molecules/rating';
+import { type Product } from '@/services/products';
 
 interface ProductListItemDescriptionProps {
-  product: ProductListItemFragment;
+  product: Product;
 }
 
 export const ProductListItemDescription = ({

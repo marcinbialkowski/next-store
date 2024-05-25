@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 import NextImage, { type ImageProps as NextImageProps } from 'next/image';
-import { type ImageFragment } from '@/graphql/client';
+import { type Image } from '@/services/images';
 
 interface ProductImageProps {
   className?: string;
-  image: ImageFragment;
+  image: Image;
   priority?: NextImageProps['priority'];
 }
 

@@ -1,9 +1,9 @@
 import { RelatedProductList } from '@/components/organisms/related-product-list';
-import { type ProductFragment } from '@/graphql/client';
+import { type Product } from '@/services/products';
 
 interface RelatedProductsSectionProps {
   className?: string;
-  productSlug: ProductFragment['slug'];
+  productSlug: Product['slug'];
 }
 
 export const RelatedProductsSection = ({
