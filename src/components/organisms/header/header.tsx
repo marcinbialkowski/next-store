@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { CartLink } from '@/components/atoms/cart-link';
-import { SearchInput } from '@/components/molecules/search-input';
+import { SearchForm } from '@/components/molecules/search-form';
 import { Navbar } from '@/components/molecules/navbar';
 
 export const Header = () => (
@@ -9,7 +9,7 @@ export const Header = () => (
       <Navbar />
       <div className="flex flex-1 items-center justify-end gap-6">
         <Suspense>
-          <SearchInput className="min-w-56 flex-1 md:max-w-80" />
+          <SearchForm className="min-w-56 flex-1 md:max-w-80" />
         </Suspense>
         <CartLink />
       </div>

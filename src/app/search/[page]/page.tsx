@@ -16,7 +16,7 @@ interface SearchPageProps {
 const pageSize = 4;
 
 const SearchPage = async ({ params, searchParams }: SearchPageProps) => {
-  const query = decodeURIComponent(searchParams?.query ?? '');
+  const query = searchParams?.query;
   const page = parsePageParam(params.page);
 
   if (!query) {
