@@ -23,10 +23,24 @@ export const getProducts = cache(
   { tags: ['products'] },
 );
 
-// TODO: implement
 export const getRelatedProducts = cache(
-  async (_productSlug: Product['slug']): Promise<Product[]> =>
-    Promise.resolve([]),
+  async (productSlug: Product['slug'], count: number): Promise<Product[]> => {
+    const category = await prisma.category.findFirst({
+      select: { id: true },
+      where: { products: { some: { slug: productSlug } } },
+    });
+
+    if (!category) {
+      return [];
+    }
+
+    const { products } = await getProducts({
+      categoryId: category.id,
+      pageSize: count + 1,
+    });
+
+    return products.filter(({ slug }) => slug !== productSlug).slice(0, count);
+  },
   ['related-products'],
   { tags: ['products'] },
 );

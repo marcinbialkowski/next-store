@@ -43,7 +43,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
   }
 
   return (
-    <div className="container grid grid-cols-1 gap-14 pt-14 lg:grid-cols-2 xl:gap-24">
+    <div className="container grid grid-cols-1 gap-x-14 gap-y-24 pt-14 lg:grid-cols-2 xl:gap-x-24">
       <div className="min-w-0">
         <ProductImage
           className="rounded-lg"
@@ -62,13 +62,13 @@ const ProductPage = async ({ params }: ProductPageProps) => {
       </div>
       <Suspense>
         <RelatedProductsSection
-          className="mt-10 lg:col-span-2"
+          className="lg:col-span-2"
           productSlug={params.productSlug}
         />
       </Suspense>
       <Suspense>
         <ProductReviewsSection
-          className="mt-10 lg:col-span-2"
+          className="lg:col-span-2"
           productId={product.id}
         />
       </Suspense>
