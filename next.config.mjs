@@ -9,6 +9,11 @@ const nextConfig = {
         hostname: '**.hyperfunctor.com',
         pathname: '/uploads/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'github.com',
+        pathname: '/marcinbialkowski/next-store/**',
+      },
     ],
   },
   experimental: {

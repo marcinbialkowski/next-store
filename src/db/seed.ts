@@ -1,5 +1,59 @@
 import { prisma } from './client';
 
+const categories = {
+  accessories: {
+    slug: 'accessories',
+    name: 'Accessories',
+    description: '',
+  },
+  tShirts: {
+    slug: 't-shirts',
+    name: 'T-Shirts',
+    description: 'These are awesome t-shirts!',
+  },
+  hoodies: {
+    slug: 'hoodies',
+    name: 'Hoodies',
+    description: '',
+  },
+};
+
+const collections = {
+  summerVibes: {
+    slug: 'summer-vibes',
+    name: 'Summer Vibes',
+    description: 'Newest products available to nextjsmasters plan!',
+    image: {
+      url: 'https://github.com/marcinbialkowski/next-store/assets/24865655/a309dbb0-ca0a-41d0-9d9e-edf3850cf1b8',
+      alt: '',
+      width: 1344,
+      height: 896,
+    },
+  },
+  newArrivals: {
+    slug: 'new-arrivals',
+    name: 'New Arrivals',
+    description: 'Collection of vintage throwback nextjsmasters.pl SWAG.',
+    image: {
+      url: 'https://github.com/marcinbialkowski/next-store/assets/24865655/59e28313-222c-4301-b1cd-3d8ebf81b891',
+      alt: '',
+      width: 1344,
+      height: 896,
+    },
+  },
+  elegantExtras: {
+    slug: 'elegant-extras',
+    name: 'Elegant Extras',
+    description: 'Elegant and essential extras from our store.',
+    image: {
+      url: 'https://github.com/marcinbialkowski/next-store/assets/24865655/2eaf0bd1-f684-4989-93ed-c514111319ce',
+      alt: '',
+      width: 1344,
+      height: 896,
+    },
+  },
+};
+
 const products = [
   {
     slug: 'tote-bag',
@@ -13,14 +67,9 @@ const products = [
       width: 800,
       height: 800,
     },
-    categories: [
-      {
-        slug: 'accessories',
-        name: 'Accessories',
-        description: '',
-      },
-    ],
+    categories: [categories.accessories],
     collections: [],
+    reviews: [],
   },
   {
     slug: 'super-super-mug',
@@ -33,20 +82,9 @@ const products = [
       width: 800,
       height: 800,
     },
-    categories: [
-      {
-        slug: 'accessories',
-        name: 'Accessories',
-        description: '',
-      },
-    ],
-    collections: [
-      {
-        slug: 'summer-vibes',
-        name: 'Summer Vibes',
-        description: 'Newest products available to nextjsmasters plan!',
-      },
-    ],
+    categories: [categories.accessories],
+    collections: [collections.summerVibes],
+    reviews: [],
   },
   {
     slug: 'unisex-long-sleeve-tee',
@@ -60,14 +98,9 @@ const products = [
       width: 800,
       height: 800,
     },
-    categories: [
-      {
-        slug: 't-shirts',
-        name: 'T-Shirts',
-        description: 'These are awesome t-shirts!',
-      },
-    ],
+    categories: [categories.tShirts],
     collections: [],
+    reviews: [],
   },
   {
     slug: 'short-sleeve-tee',
@@ -81,14 +114,9 @@ const products = [
       width: 800,
       height: 800,
     },
-    categories: [
-      {
-        slug: 't-shirts',
-        name: 'T-Shirts',
-        description: 'These are awesome t-shirts!',
-      },
-    ],
+    categories: [categories.tShirts],
     collections: [],
+    reviews: [],
   },
   {
     slug: 'snapback',
@@ -102,14 +130,9 @@ const products = [
       width: 800,
       height: 800,
     },
-    categories: [
-      {
-        slug: 'accessories',
-        name: 'Accessories',
-        description: '',
-      },
-    ],
+    categories: [categories.accessories],
     collections: [],
+    reviews: [],
   },
   {
     slug: 'unisex-zip-hoodie',
@@ -123,14 +146,9 @@ const products = [
       width: 800,
       height: 800,
     },
-    categories: [
-      {
-        slug: 'hoodies',
-        name: 'Hoodies',
-        description: '',
-      },
-    ],
+    categories: [categories.hoodies],
     collections: [],
+    reviews: [],
   },
   {
     slug: 'backpack',
@@ -144,18 +162,61 @@ const products = [
       width: 800,
       height: 800,
     },
-    categories: [
+    categories: [categories.accessories],
+    collections: [collections.summerVibes],
+    reviews: [
       {
-        slug: 'accessories',
-        name: 'Accessories',
-        description: '',
+        author: 'Sheila Murray',
+        email: 'test@test.com',
+        title: 'Quod perspiciatis impedit cum voluptatum iure minima.',
+        content:
+          'Eligendi vero sunt atque aut facilis soluta quas rerum ea. Sit nostrum nobis. Natus earum repudiandae dicta.',
+        rating: 4,
       },
-    ],
-    collections: [
       {
-        slug: 'summer-vibes',
-        name: 'Summer Vibes',
-        description: 'Newest products available to nextjsmasters plan!',
+        author: "Yvette Feest-O'Kon",
+        email: 'test@test.com',
+        title: 'Enim soluta dignissimos perferendis facilis pariatur veniam in',
+        content:
+          'Aut culpa labore natus. Quod soluta nobis exercitationem illum accusamus nisi rem qui. Ut blanditiis occaecati delectus sunt.\n' +
+          '\n' +
+          'Officia eligendi saepe. Id fugit ea fugiat ipsum incidunt voluptate omnis nemo. Fugiat laudantium magni soluta in pariatur maiores optio illo.\n' +
+          '\n' +
+          'Amet quaerat ea quidem ipsam. Corporis iure molestias delectus numquam beatae natus ab ullam in. In temporibus modi.',
+        rating: 3,
+      },
+      {
+        author: 'Miss Verna MacGyver',
+        email: 'test@test.com',
+        title: 'Repellendus temporibus quaerat vel eligendi qui a',
+        content:
+          'Autem est maxime. Facere ratione excepturi accusantium temporibus cupiditate. Natus ab voluptas reiciendis numquam tenetur facere voluptate distinctio.',
+        rating: 5,
+      },
+      {
+        author: 'Sheila Glover',
+        email: 'test@test.com',
+        title:
+          'Libero laudantium commodi laborum voluptates consequuntur labore explicabo at.',
+        content:
+          'Nihil deleniti quam neque ullam. Nemo incidunt consequatur animi consectetur quam ducimus dolorem nostrum. Laborum ratione libero vel dicta iure commodi nemo explicabo. Commodi sapiente quas illum unde necessitatibus voluptas aut laboriosam. Numquam inventore repellendus earum perspiciatis numquam. Dolore harum ut temporibus rem enim nobis velit fugiat.',
+        rating: 3,
+      },
+      {
+        author: 'Dana Brown',
+        email: 'test@test.com',
+        title: 'Dolore repellat sunt dicta nisi ipsum iure odit.',
+        content:
+          'Hic soluta quos omnis voluptatibus ipsa a vitae tenetur. Vitae nemo iure necessitatibus delectus earum provident debitis. Laboriosam eum iure asperiores velit.',
+        rating: 3,
+      },
+      {
+        author: 'Sheila Glover',
+        email: 'test@test.com',
+        title: 'Quod perspiciatis',
+        content:
+          'Nemo incidunt consequatur animi consectetur quam ducimus dolorem nostrum. Laborum ratione libero vel dicta iure commodi nemo explicabo. Commodi sapiente quas illum unde necessitatibus voluptas aut laboriosam. Numquam inventore repellendus earum perspiciatis numquam. Dolore harum ut temporibus rem enim nobis velit fugiat.',
+        rating: 3,
       },
     ],
   },
@@ -170,18 +231,22 @@ const products = [
       width: 1024,
       height: 1024,
     },
-    categories: [
+    categories: [categories.hoodies],
+    collections: [collections.summerVibes],
+    reviews: [
       {
-        slug: 'hoodies',
-        name: 'Hoodies',
-        description: '',
+        author: 'Test user',
+        email: 'test@test.com',
+        title: 'Test review 1',
+        content: 'Review content',
+        rating: 1,
       },
-    ],
-    collections: [
       {
-        slug: 'summer-vibes',
-        name: 'Summer Vibes',
-        description: 'Newest products available to nextjsmasters plan!',
+        author: 'Test user',
+        email: 'test@test.com',
+        title: 'Test review 2',
+        content: 'Review content',
+        rating: 1,
       },
     ],
   },
@@ -196,14 +261,9 @@ const products = [
       width: 800,
       height: 800,
     },
-    categories: [
-      {
-        slug: 'hoodies',
-        name: 'Hoodies',
-        description: '',
-      },
-    ],
+    categories: [categories.hoodies],
     collections: [],
+    reviews: [],
   },
   {
     slug: 'vivid-cap',
@@ -216,18 +276,15 @@ const products = [
       width: 1024,
       height: 1024,
     },
-    categories: [
+    categories: [categories.accessories],
+    collections: [collections.summerVibes],
+    reviews: [
       {
-        slug: 'accessories',
-        name: 'Accessories',
-        description: '',
-      },
-    ],
-    collections: [
-      {
-        slug: 'summer-vibes',
-        name: 'Summer Vibes',
-        description: 'Newest products available to nextjsmasters plan!',
+        author: 'John Test',
+        email: 'test@test.com',
+        title: 'My review',
+        content: 'Nice one',
+        rating: 4,
       },
     ],
   },
@@ -243,18 +300,22 @@ const products = [
       width: 1024,
       height: 1024,
     },
-    categories: [
+    categories: [categories.tShirts],
+    collections: [collections.newArrivals],
+    reviews: [
       {
-        slug: 't-shirts',
-        name: 'T-Shirts',
-        description: 'These are awesome t-shirts!',
+        author: 'John Test',
+        email: 'test@test.com',
+        title: 'Test review',
+        content: 'I like it',
+        rating: 5,
       },
-    ],
-    collections: [
       {
-        slug: 'new-arrivals',
-        name: 'New Arrivals',
-        description: 'Collection of vintage throwback nextjsmasters.pl SWAG.',
+        author: 'Joe Test',
+        email: 'test@test.com',
+        title: 'My test review',
+        content: "It's ok",
+        rating: 4,
       },
     ],
   },
@@ -270,18 +331,15 @@ const products = [
       width: 1024,
       height: 1024,
     },
-    categories: [
+    categories: [categories.tShirts],
+    collections: [collections.newArrivals],
+    reviews: [
       {
-        slug: 't-shirts',
-        name: 'T-Shirts',
-        description: 'These are awesome t-shirts!',
-      },
-    ],
-    collections: [
-      {
-        slug: 'new-arrivals',
-        name: 'New Arrivals',
-        description: 'Collection of vintage throwback nextjsmasters.pl SWAG.',
+        author: 'John Test',
+        email: 'test@test.com',
+        title: 'Test review',
+        content: 'Not great',
+        rating: 1,
       },
     ],
   },
@@ -297,18 +355,24 @@ const products = [
       width: 1024,
       height: 1024,
     },
-    categories: [
+    categories: [categories.accessories],
+    collections: [collections.elegantExtras],
+    reviews: [
       {
-        slug: 'accessories',
-        name: 'Accessories',
-        description: '',
+        author: 'Sheila Glover',
+        email: 'test@test.com',
+        title: 'Libero laudantium',
+        content:
+          'Libero laudantium commodi laborum voluptates consequuntur labore explicabo at.',
+        rating: 5,
       },
-    ],
-    collections: [
       {
-        slug: 'elegant-extras',
-        name: 'Elegant Extras',
-        description: 'Elegant and essential extras from our store.',
+        author: 'Dana Brown',
+        email: 'test@test.com',
+        title: 'Nihil deleniti quam neque ullam',
+        content:
+          'Nemo incidunt consequatur animi consectetur quam ducimus dolorem nostrum. Laborum ratione libero vel dicta iure commodi nemo explicabo. Commodi sapiente quas illum unde necessitatibus voluptas aut laboriosam. Numquam inventore repellendus earum perspiciatis numquam. Dolore harum ut temporibus rem enim nobis velit fugiat.',
+        rating: 5,
       },
     ],
   },
@@ -324,18 +388,32 @@ const products = [
       width: 1024,
       height: 1024,
     },
-    categories: [
+    categories: [categories.accessories],
+    collections: [collections.elegantExtras],
+    reviews: [
       {
-        slug: 'accessories',
-        name: 'Accessories',
-        description: '',
+        author: 'Dana Brown',
+        email: 'test@test.com',
+        title: 'Repellendus temporibus quaerat vel eligendi',
+        content:
+          'Aut culpa labore natus. Quod soluta nobis exercitationem illum accusamus nisi rem qui. Ut blanditiis occaecati delectus sunt. Officia eligendi saepe. Id fugit ea fugiat ipsum incidunt voluptate omnis nemo. Fugiat laudantium magni soluta in pariatur maiores optio illo. Amet quaerat ea quidem ipsam. Corporis iure molestias delectus numquam beatae natus ab ullam in. In temporibus modi.',
+        rating: 2,
       },
-    ],
-    collections: [
       {
-        slug: 'elegant-extras',
-        name: 'Elegant Extras',
-        description: 'Elegant and essential extras from our store.',
+        author: 'Sheila Murray',
+        email: 'test@test.com',
+        title: 'Quod perspiciatis impedit cum voluptatum iure minima.',
+        content:
+          'Eligendi vero sunt atque aut facilis soluta quas rerum ea. Sit nostrum nobis. Natus earum repudiandae dicta.',
+        rating: 3,
+      },
+      {
+        author: 'Sheila Glover',
+        email: 'test@test.com',
+        title: 'Quod perspiciatis',
+        content:
+          'Nemo incidunt consequatur animi consectetur quam ducimus dolorem nostrum. Laborum ratione libero vel dicta iure commodi nemo explicabo. Commodi sapiente quas illum unde necessitatibus voluptas aut laboriosam. Numquam inventore repellendus earum perspiciatis numquam. Dolore harum ut temporibus rem enim nobis velit fugiat.',
+        rating: 3,
       },
     ],
   },
@@ -355,8 +433,14 @@ const products = [
       where: {
         slug: collection.slug,
       },
-      create: collection,
+      create: {
+        ...collection,
+        image: { create: collection.image },
+      },
     })),
+  },
+  reviews: {
+    create: product.reviews,
   },
 }));
 

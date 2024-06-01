@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "nextjs-masters-store",
+  "name": "next-store",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,11 +10,10 @@
     "lint": "next lint --dir src",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "prepare": "husky",
-    "postinstall": "pnpm db:generate-client",
     "db:seed": "tsx src/db/seed.ts",
     "db:migrate": "prisma migrate dev",
-    "db:generate-client": "prisma generate"
+    "db:generate-client": "prisma generate",
+    "prepare": "husky && pnpm db:generate-client"
   },
   "prisma": {
     "schema": "src/db/schema.prisma"

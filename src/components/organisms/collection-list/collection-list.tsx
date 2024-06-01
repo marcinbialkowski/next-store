@@ -1,23 +1,14 @@
-import clsx from 'clsx';
-import {
-  CollectionListItem,
-  type CollectionListItemProps,
-} from '@/components/molecules/collection-list-item';
+import { CollectionListItem } from '@/components/molecules/collection-list-item';
+import { getCollections } from '@/services/collections';
 
-interface CollectionListProps {
-  className?: string;
-  collections: CollectionListItemProps['collection'][];
-}
+export const CollectionList = async () => {
+  const collections = await getCollections();
 
-export const CollectionList = ({
-  className,
-  collections,
-}: CollectionListProps) => (
-  <ul
-    className={clsx(className, 'grid w-full grid-cols-1 gap-4 md:grid-cols-3')}
-  >
-    {collections.map((collection) => (
-      <CollectionListItem key={collection.name} collection={collection} />
-    ))}
-  </ul>
-);
+  return (
+    <ul className="grid w-full grid-cols-1 gap-4 md:grid-cols-3">
+      {collections.map((collection) => (
+        <CollectionListItem key={collection.id} collection={collection} />
+      ))}
+    </ul>
+  );
+};

@@ -1,14 +1,11 @@
-import {
-  CollectionImage,
-  type CollectionImageProps,
-} from '@/components/atoms/collection-image';
+import { CollectionImage } from '@/components/atoms/collection-image';
 import { Link } from '@/components/atoms/link';
+import type { Collection } from '@/services/collections';
+import type { Image } from '@/services/images';
 
 export interface CollectionListItemProps {
-  collection: {
-    slug: string;
-    name: string;
-    image: CollectionImageProps['image'];
+  collection: Collection & {
+    image: Image;
   };
 }
 

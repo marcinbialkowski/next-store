@@ -6,6 +6,14 @@ import {
 } from '@/services/products';
 import { prisma } from '@/db';
 
+export const getCollections = cache(
+  async () => prisma.collection.findMany({ include: { image: true } }),
+  ['get-collections'],
+  {
+    tags: ['collections'],
+  },
+);
+
 export const getCollection = cache(
   async (
     slug: Collection['slug'],

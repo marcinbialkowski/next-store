@@ -1,14 +1,10 @@
 import clsx from 'clsx';
 import NextImage from 'next/image';
+import { type Image } from '@/services/images';
 
 export interface CollectionImageProps {
   className?: string;
-  image: {
-    alt: string;
-    url: string;
-    width: number;
-    height: number;
-  };
+  image: Image;
 }
 
 export const CollectionImage = ({ className, image }: CollectionImageProps) => (
