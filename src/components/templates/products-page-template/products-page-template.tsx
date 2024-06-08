@@ -1,8 +1,7 @@
 import { MainBanner } from '@/components/atoms/main-banner';
 import { PageTitle } from '@/components/atoms/page-title';
 import { ProductsSort } from '@/components/molecules/products-sort';
-import { ProductList } from '@/components/organisms/product-list';
-import { Pagination } from '@/components/molecules/pagination';
+import { PaginatedProductList } from '@/components/organisms/paginated-product-list';
 import {
   type Product,
   type ProductsSortBy,
@@ -31,14 +30,11 @@ export const ProductsPageTemplate = ({
       <PageTitle>All products</PageTitle>
       <ProductsSort value={`${sortBy}-${sortDirection}`} />
     </MainBanner>
-    <div className="container pt-14">
-      <ProductList products={products} />
-      <Pagination
-        className="mt-14"
-        currentPage={page}
-        pagesCount={pagesCount}
-        pageToHref={(page) => `/products/${page}${queryString}`}
-      />
-    </div>
+    <PaginatedProductList
+      page={page}
+      pagesCount={pagesCount}
+      pageToHref={(page) => `/products/${page}${queryString}`}
+      products={products}
+    />
   </>
 );
