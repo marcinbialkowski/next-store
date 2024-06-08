@@ -1,15 +1,12 @@
-import qs from 'qs';
 import { notFound } from 'next/navigation';
-import { PageTitle } from '@/components/atoms/page-title';
-import { MainBanner } from '@/components/atoms/main-banner';
-import { ProductList } from '@/components/organisms/product-list';
-import { ProductsSort } from '@/components/molecules/products-sort';
-import { Pagination } from '@/components/molecules/pagination';
+import qs from 'qs';
+import { ProductsPageTemplate } from '@/components/templates/products-page-template';
 import { getProducts } from '@/services/products';
 import {
   parsePageParam,
   parseSearchParams,
 } from '@/utils/parse-products-params';
+import { DEFAULT_PAGE_SIZE } from '@/const';
 
 interface ProductsPageProps {
   params: { page: string };
@@ -19,7 +16,7 @@ interface ProductsPageProps {
   };
 }
 
-const pageSize = 4;
+const pageSize = DEFAULT_PAGE_SIZE;
 
 export const generateStaticParams = async () => {
   const { pagesCount } = await getProducts({ pageSize });
@@ -44,23 +41,14 @@ const ProductsPage = async ({ params, searchParams }: ProductsPageProps) => {
   }
 
   return (
-    <>
-      <MainBanner className="flex items-center justify-between">
-        <PageTitle>All products</PageTitle>
-        <ProductsSort value={`${sortBy}-${sortDirection}`} />
-      </MainBanner>
-      <div className="container pt-14">
-        <ProductList products={products} />
-        <Pagination
-          className="mt-14"
-          currentPage={page}
-          pagesCount={pagesCount}
-          pageToHref={(page) =>
-            `/products/${page}${qs.stringify(searchParams, { addQueryPrefix: true })}`
-          }
-        />
-      </div>
-    </>
+    <ProductsPageTemplate
+      page={page}
+      pagesCount={pagesCount}
+      products={products}
+      queryString={qs.stringify(searchParams, { addQueryPrefix: true })}
+      sortBy={sortBy}
+      sortDirection={sortDirection}
+    />
   );
 };
 

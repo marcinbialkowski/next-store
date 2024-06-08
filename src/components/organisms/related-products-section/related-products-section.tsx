@@ -1,5 +1,6 @@
 import { ProductList } from '@/components/organisms/product-list';
 import { getRelatedProducts, type Product } from '@/services/products';
+import { DEFAULT_PAGE_SIZE } from '@/const';
 
 interface RelatedProductsSectionProps {
   className?: string;
@@ -10,7 +11,7 @@ export const RelatedProductsSection = async ({
   className,
   productSlug,
 }: RelatedProductsSectionProps) => {
-  const products = await getRelatedProducts(productSlug, 4);
+  const products = await getRelatedProducts(productSlug, DEFAULT_PAGE_SIZE);
 
   if (products.length === 0) {
     return null;

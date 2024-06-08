@@ -1,12 +1,9 @@
 import { CollectionImage } from '@/components/atoms/collection-image';
 import { Link } from '@/components/atoms/link';
-import type { Collection } from '@/services/collections';
-import type { Image } from '@/services/images';
+import { type CollectionListItem as CollectionListItemType } from '@/services/collections';
 
 export interface CollectionListItemProps {
-  collection: Collection & {
-    image: Image;
-  };
+  collection: CollectionListItemType;
 }
 
 export const CollectionListItem = ({ collection }: CollectionListItemProps) => (

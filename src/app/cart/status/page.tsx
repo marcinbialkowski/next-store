@@ -1,15 +1,15 @@
 import { notFound } from 'next/navigation';
+import { OrderStatusPageTemplate } from '@/components/templates/order-status-page-template';
 import { getPaymentIntentStatus } from '@/services/payments';
-import { CheckoutStatus } from '@/components/atoms/checkout-status';
 
-interface CartSuccessProps {
+interface OrderStatusPageProps {
   searchParams?: {
     payment_intent?: string;
     payment_intent_client_secret?: string;
   };
 }
 
-const CartSuccess = async ({ searchParams }: CartSuccessProps) => {
+const OrderStatusPage = async ({ searchParams }: OrderStatusPageProps) => {
   if (
     !searchParams?.payment_intent ||
     !searchParams?.payment_intent_client_secret
@@ -22,11 +22,7 @@ const CartSuccess = async ({ searchParams }: CartSuccessProps) => {
     searchParams.payment_intent_client_secret,
   );
 
-  return (
-    <div className="container pt-14">
-      <CheckoutStatus status={status} />
-    </div>
-  );
+  return <OrderStatusPageTemplate status={status} />;
 };
 
-export default CartSuccess;
+export default OrderStatusPage;

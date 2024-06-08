@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { PageTitle } from '@/components/atoms/page-title';
-import { MainBanner } from '@/components/atoms/main-banner';
-import { ProductList } from '@/components/organisms/product-list';
+import { CollectionPageTemplate } from '@/components/templates/collection-page-template';
 import { getCollection } from '@/services/collections';
+import { DEFAULT_PAGE_SIZE } from '@/const';
 
 interface CollectionPageProps {
   params: {
@@ -11,7 +10,7 @@ interface CollectionPageProps {
   };
 }
 
-const pageSize = 12;
+const pageSize = DEFAULT_PAGE_SIZE;
 
 export const generateMetadata = async ({
   params,
@@ -29,6 +28,7 @@ export const generateMetadata = async ({
     : {};
 };
 
+// TODO: add pagination and make consistent with category page
 const CollectionPage = async ({ params }: CollectionPageProps) => {
   const { collectionSlug: slug } = params;
 
@@ -40,17 +40,7 @@ const CollectionPage = async ({ params }: CollectionPageProps) => {
     return notFound();
   }
 
-  return (
-    <>
-      <MainBanner>
-        <PageTitle className="mb-4">{collection.name}</PageTitle>
-        <p className="text-base text-gray-700">{collection.description}</p>
-      </MainBanner>
-      <div className="container pt-14">
-        <ProductList products={collection.products} />
-      </div>
-    </>
-  );
+  return <CollectionPageTemplate collection={collection} />;
 };
 
 export default CollectionPage;

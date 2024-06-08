@@ -1,22 +1,10 @@
-import { PageTitle } from '@/components/atoms/page-title';
-import { MainBanner } from '@/components/atoms/main-banner';
-import { EmptyCart } from '@/components/atoms/empty-cart';
-import { Cart } from '@/components/organisms/cart';
+import { CartPageTemplate } from '@/components/templates/cart-page-template';
 import { getCartFromCookie } from '@/services/orders';
 
 const CartPage = async () => {
   const cart = await getCartFromCookie();
 
-  return (
-    <>
-      <MainBanner>
-        <PageTitle>Your Cart</PageTitle>
-      </MainBanner>
-      <div className="container pt-14">
-        {cart && cart.items.length > 0 ? <Cart cart={cart} /> : <EmptyCart />}
-      </div>
-    </>
-  );
+  return <CartPageTemplate cart={cart} />;
 };
 
 export default CartPage;

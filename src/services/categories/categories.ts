@@ -10,21 +10,21 @@ export const getCategory = cache(
   async (
     slug: Category['slug'],
     paginationOptions: ProductsPaginationOptions,
-  ) => {
+  ): Promise<Category | null> => {
     const category = await prisma.category.findUnique({ where: { slug } });
 
     if (!category) {
       return null;
     }
 
-    const productsResult = await getProducts({
+    const productsData = await getProducts({
       categoryId: category.id,
       ...paginationOptions,
     });
 
     return {
       ...category,
-      ...productsResult,
+      productsData,
     };
   },
   ['get-category'],

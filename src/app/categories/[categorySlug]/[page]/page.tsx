@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { PageTitle } from '@/components/atoms/page-title';
-import { ProductList } from '@/components/organisms/product-list';
-import { Pagination } from '@/components/molecules/pagination';
+import { CategoryPageTemplate } from '@/components/templates/category-page-template';
 import { parsePageParam } from '@/utils/parse-products-params';
 import { getCategory } from '@/services/categories';
-import { MainBanner } from '@/components/atoms/main-banner';
+import { DEFAULT_PAGE_SIZE } from '@/const';
 
 interface CategoryPageProps {
   params: {
@@ -14,7 +12,7 @@ interface CategoryPageProps {
   };
 }
 
-const pageSize = 4;
+const pageSize = DEFAULT_PAGE_SIZE;
 
 export const generateMetadata = async ({
   params,
@@ -43,26 +41,11 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
     pageSize,
   });
 
-  if (!category || (category.products.length === 0 && page > 1)) {
+  if (!category || (category.productsData.products.length === 0 && page > 1)) {
     return notFound();
   }
 
-  return (
-    <>
-      <MainBanner>
-        <PageTitle>{category.name}</PageTitle>
-      </MainBanner>
-      <div className="container pt-14">
-        <ProductList products={category.products} />
-        <Pagination
-          className="mt-14"
-          currentPage={page}
-          pagesCount={category.pagesCount}
-          pageToHref={(page) => `/categories/${slug}/${page}`}
-        />
-      </div>
-    </>
-  );
+  return <CategoryPageTemplate category={category} page={page} />;
 };
 
 export default CategoryPage;

@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import { notFound } from 'next/navigation';
 import { type ComponentType } from 'react';
+import { StaticPageTemplate } from '@/components/templates/static-page-template';
 
 interface StaticPageProps {
   params: { filename: string };
@@ -22,9 +23,9 @@ const StaticPage = async ({ params }: StaticPageProps) => {
   );
 
   return (
-    <article className="prose mx-auto pt-14">
+    <StaticPageTemplate>
       <Content />
-    </article>
+    </StaticPageTemplate>
   );
 };
 

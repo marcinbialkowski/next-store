@@ -1,5 +1,5 @@
 import { unstable_cache as cache } from 'next/cache';
-import { type Collection } from './collections.types';
+import { type Collection, type CollectionListItem } from './collections.types';
 import {
   type ProductsPaginationOptions,
   getProducts,
@@ -7,7 +7,8 @@ import {
 import { prisma } from '@/db';
 
 export const getCollections = cache(
-  async () => prisma.collection.findMany({ include: { image: true } }),
+  async (): Promise<CollectionListItem[]> =>
+    prisma.collection.findMany({ include: { image: true } }),
   ['get-collections'],
   {
     tags: ['collections'],
@@ -18,21 +19,21 @@ export const getCollection = cache(
   async (
     slug: Collection['slug'],
     paginationOptions: ProductsPaginationOptions,
-  ) => {
+  ): Promise<Collection | null> => {
     const collection = await prisma.collection.findUnique({ where: { slug } });
 
     if (!collection) {
       return null;
     }
 
-    const productsResult = await getProducts({
+    const productsData = await getProducts({
       collectionId: collection.id,
       ...paginationOptions,
     });
 
     return {
       ...collection,
-      ...productsResult,
+      productsData,
     };
   },
   ['get-collection'],

@@ -1,10 +1,8 @@
 import { notFound } from 'next/navigation';
-import { PageTitle } from '@/components/atoms/page-title';
-import { MainBanner } from '@/components/atoms/main-banner';
-import { ProductList } from '@/components/organisms/product-list';
-import { Pagination } from '@/components/molecules/pagination';
+import { SearchPageTemplate } from '@/components/templates/search-page-template';
 import { getProducts } from '@/services/products';
 import { parsePageParam } from '@/utils/parse-products-params';
+import { DEFAULT_PAGE_SIZE } from '@/const';
 
 interface SearchPageProps {
   params: { page: string };
@@ -13,7 +11,7 @@ interface SearchPageProps {
   };
 }
 
-const pageSize = 4;
+const pageSize = DEFAULT_PAGE_SIZE;
 
 const SearchPage = async ({ params, searchParams }: SearchPageProps) => {
   const query = searchParams?.query;
@@ -34,24 +32,12 @@ const SearchPage = async ({ params, searchParams }: SearchPageProps) => {
   }
 
   return (
-    <>
-      <MainBanner>
-        <PageTitle>Search result for phrase: &quot;{query}&quot;</PageTitle>
-      </MainBanner>
-      <div className="container pt-14">
-        <ProductList products={products} />
-        <Pagination
-          className="mt-14"
-          currentPage={page}
-          pagesCount={pagesCount}
-          pageToHref={(page) =>
-            page === 1
-              ? `/search?query=${query}`
-              : `/search/${page}?query=${query}`
-          }
-        />
-      </div>
-    </>
+    <SearchPageTemplate
+      query={query}
+      page={page}
+      pagesCount={pagesCount}
+      products={products}
+    />
   );
 };
 

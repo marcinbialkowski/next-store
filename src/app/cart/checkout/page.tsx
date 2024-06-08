@@ -1,7 +1,5 @@
 import { redirect } from 'next/navigation';
-import { MainBanner } from '@/components/atoms/main-banner';
-import { PageTitle } from '@/components/atoms/page-title';
-import { StripeForm } from '@/components/molecules/stripe-form';
+import { CheckoutPageTemplate } from '@/components/templates/checkout-page-template';
 import { createPaymentIntent } from '@/services/payments';
 
 const CheckoutPage = async () => {
@@ -13,16 +11,7 @@ const CheckoutPage = async () => {
     redirect('/cart');
   }
 
-  return (
-    <>
-      <MainBanner>
-        <PageTitle>Checkout</PageTitle>
-      </MainBanner>
-      <div className="container pt-14">
-        <StripeForm clientSecret={clientSecret} />
-      </div>
-    </>
-  );
+  return <CheckoutPageTemplate stripeClientSecret={clientSecret} />;
 };
 
 export default CheckoutPage;
